@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -22,42 +23,43 @@ public class Fajlovi extends ListActivity {
     private Socket client;
     ObjectOutputStream printer;
     ObjectInputStream writer;
+    ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fajlovi);
 
-        //final ListView llvv= (ListView) findViewById(R.id.list);
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
+                    ListView lv=(ListView) findViewById(android.R.id.list);
                     List<String> lista=new ArrayList<String>();
-                    Context ctx = getBaseContext();
-
-                    client=new Socket(Razmena.getDefaults("IP",getApplicationContext()),Integer.parseInt(Razmena.getDefaults("PORT",getApplicationContext())));
+                    client = new Socket(Razmena.getDefaults("IP", getApplicationContext()), Integer.parseInt(Razmena.getDefaults("PORT", getApplicationContext())));
                     printer = new ObjectOutputStream(client.getOutputStream());
-                    writer= new ObjectInputStream(client.getInputStream());
+                    writer = new ObjectInputStream(client.getInputStream());
                     do {
                         try {
                             String poruka = (String) writer.readObject();
-                            lista.add(poruka);
-                        }catch (Exception e){}
-                    }while (!(lista.contains("END")));
-                    String[] ss= new String[lista.size()];
-                    for(int i=0;i<lista.size();i++)
-                    {
-                        ss[i]=lista.get(i).toString();
-                    }
-                    setListAdapter(new ArrayAdapter<String>(ctx, android.R.layout.simple_list_item_1, ss));
+                            if(poruka.equals("BEGIN")){
+                                lista.clear();
+                            }
+                            else if(poruka.equals("END")){
+                                ArrayAdapter<String> adapter=new ArrayAdapter<String>(getBaseContext(),
+                                        android.R.layout.simple_list_item_1,
+                                        lista);
+                                lv.setAdapter(adapter);
 
+                            }
+                            else lista.add(poruka);
+                        }catch (Exception e){e.printStackTrace();}
+                    }while (true);
                 }catch (Exception e){e.printStackTrace();}
-
             }
         }).start();
 
