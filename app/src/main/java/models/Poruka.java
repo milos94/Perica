@@ -5,7 +5,9 @@ import java.io.Serializable;
 /**
  * Created by Milos on 16/12/2015.
  */
+
 public class Poruka implements Serializable {
+    static final long serialVersionUID=-189968662588969806L;
     private String kommanda;
     private String fajl;
     private String[] argumenti;
@@ -20,6 +22,8 @@ public class Poruka implements Serializable {
             argumenti[i]=arg[i];
         }
     }
+    public  Poruka(String s, String s1){ fajl=s; ekstenzija=s1;}
+    public Poruka(String s){ fajl=s;}
     public String getEkstenzija() {
         return ekstenzija;
     }
@@ -34,5 +38,11 @@ public class Poruka implements Serializable {
 
     public String[] getArgumenti() {
         return argumenti;
+    }
+    public String toString(){
+        return fajl+ekstenzija;
+    }
+    public void setFajl(String s){
+        fajl=s;
     }
 }
