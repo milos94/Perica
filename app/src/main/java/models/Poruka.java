@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Poruka implements Serializable {
-    static final long serialVersionUID=-189968662588969806L;
+    static final long serialVersionUID=-1191781795339130420L;
     private String kommanda;
     private String fajl;
     private String[] argumenti;

@@ -3,6 +3,7 @@ package com.example.milos.perica;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,17 +31,22 @@ import models.Poruka;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String ip,port;
+    public static List<Poruka> lista= new ArrayList<Poruka>();
     Konekcija konekcija;
     ListView listView;
-    public static ArrayAdapter<Poruka> adapter;
+    ArrayAdapter<Poruka> adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        adapter=new ArrayAdapter<Poruka>(getApplicationContext(),
+                android.R.layout.simple_list_item_1,
+                MainActivity.lista);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         konekcija=null;
-        listView=(ListView) findViewById(android.R.id.list);
+        listView=(ListView) findViewById(R.id.list1);
         setSupportActionBar(toolbar);
     }
     @Override
@@ -49,11 +55,9 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    public void odstamapajListu(List<Poruka> lista){
-        ArrayAdapter<Poruka> adapter=new ArrayAdapter<Poruka>(getBaseContext(),
-                android.R.layout.simple_list_item_1,
-                lista);
-        listView.setAdapter(adapter);
+    public  void StampajListu(Context ctx){
+
+
     }
 
     @Override
@@ -68,12 +72,13 @@ public class MainActivity extends AppCompatActivity {
            Intent intent= new Intent(this,Podesavanja.class);
            startActivity(intent);
         }
-        if(id==R.id.on_off){
+        if(id==R.id.paljeje) {
+
             if(konekcija==null) {
-                konekcija = new Konekcija((ListView) findViewById(android.R.id.list),
-                        getApplicationContext(),
-                        this);
-                konekcija.start();
+               // MainActivity.this.runOnUiThread(new Konekcija(getApplicationContext(),listView));
+                //konekcija= new Konekcija(getApplicationContext(),listView);
+                new MojaKlasa().execute();
+                //konekcija.start();
                 return true;
             }
             else{
@@ -83,9 +88,30 @@ public class MainActivity extends AppCompatActivity {
                 }catch (IOException e){e.printStackTrace();}
                 catch (Exception e){e.printStackTrace();}
             }
-
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    
+    class MojaKlasa extends  AsyncTask<Void, Poruka, Poruka>{
+        private Konekcija kon;
+        private ArrayAdapter<Poruka> adapter;
+        @Override
+        protected void onPreExecute(){
+            adapter=(ArrayAdapter<Poruka>)listView.getAdapter();
+            kon=new Konekcija(getApplicationContext());
+            kon.start();
+        }
+        @Override
+        protected Poruka doInBackground(Void... params) {
+            while(true){
+                kon.uzmi();
+                onProgressUpdate(kon.uzmi());
+            }
+        }
+
+        protected void onProgressUpdate(Poruka params){
+            adapter.add(params);
+        }
     }
 }
