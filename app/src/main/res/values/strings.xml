@@ -62,4 +62,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_podesavanja">Podesavanja</string>
     <string name="title_activity_fajlovi">Fajlovi</string>
+    <string name="title_activity_prikaz">Prikaz</string>
 </resources>

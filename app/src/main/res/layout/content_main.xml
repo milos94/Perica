@@ -10,11 +10,12 @@
     android:orientation="vertical"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity"
     android:weightSum="1">
+<ListView
+    android:background="#123456"
+    android:id="@+id/listView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list1" />
+</ListView>
 
 </LinearLayout>
