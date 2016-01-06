@@ -36,6 +36,8 @@ public class Konekcija extends Thread{
     Message msg;
     Handler handler;
 
+
+    //Mislim da konstruktor nije potrebno objašnjavati
     public Konekcija(Context ct, Handler hand){
         lista=new ArrayList<Poruka>();
         radi=false;
@@ -45,6 +47,7 @@ public class Konekcija extends Thread{
 
 
 
+    //run šta više reći
     public void run(){
         try{
             pokreni();
@@ -53,7 +56,7 @@ public class Konekcija extends Thread{
                 if(p.getFajl().equals("START")){ lista.clear(); continue;}
                 else if(p.getFajl().equals("END")){
                     msg=Message.obtain();
-                    msg.what=1;
+                    msg.what=Poruke.OK;
                     msg.obj=lista;
                     handler.sendMessage(msg);
                     continue;
@@ -61,17 +64,21 @@ public class Konekcija extends Thread{
                 else if(p.getFajl().equals("SHUTDOWN")){
                     kraj();
                     msg=Message.obtain();
-                    msg.what=2;
+                    msg.what=Poruke.ZATVARANJE_KONEKCIJE;
                     handler.sendMessage(msg);
                     break;}
                 else{ lista.add(p);}
             }
-        }catch (IOException e){ e.printStackTrace();}
-        catch (Exception e){e.printStackTrace();}
+        }
+        catch (Exception e){e.printStackTrace();
+            msg=Message.obtain();
+            msg.what=Poruke.GRESKA_NA_SERVERU;
+            handler.sendMessage(msg);}
     }
 
 
 
+    //Metoda za slanje poruke u obliku string
     public void posaljiPoruku(String p){
         try {
             outputStream.writeObject(p);
@@ -82,6 +89,7 @@ public class Konekcija extends Thread{
 
 
 
+    //Metoda koja zatvara socket i strimove
     public void kraj() throws IOException{
         radi=false;
         inputStream.close();
@@ -90,17 +98,20 @@ public class Konekcija extends Thread{
     }
 
 
+
+    //Metoda koja pokreće konekciju odnosno vezuje soket i strimove
     public void pokreni() {
-        radi=true;
         try{
             socket=new Socket(Razmena.getDefaults("IP",ctx),
                     Integer.parseInt(Razmena.getDefaults("PORT", ctx)));
             inputStream=new ObjectInputStream(socket.getInputStream());
             outputStream=new ObjectOutputStream(socket.getOutputStream());
-        }catch (IOException e){e.printStackTrace();}
+            radi=true;
+        }catch (Exception e){
+            e.printStackTrace();
+            msg=Message.obtain();
+            msg.what=Poruke.GRESKA_PRI_KONEKTOVANJU;
+            handler.sendMessage(msg);}
     }
 
-    public boolean getRadi(){
-        return radi;
-    }
 }

@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ import android.widget.AbsListView.MultiChoiceModeListener;
 
 import models.Konekcija;
 import models.Poruka;
+import models.Poruke;
 
 public class MainActivity extends AppCompatActivity {
     private Handler handler;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg){
                 switch (msg.what) {
-                    case 1:
+                    case Poruke.OK:
                         ArrayList<Poruka> listaPoruka = (ArrayList<Poruka>) msg.obj;
                         adapter = new ArrayAdapter<Poruka>(getApplicationContext(),
                             android.R.layout.simple_list_item_1,
@@ -65,11 +67,17 @@ public class MainActivity extends AppCompatActivity {
                         listView.setAdapter(adapter);
                         break;
 
-                    case 2:
+                    case Poruke.ZATVARANJE_KONEKCIJE:
                         konekcija=null;
                         //treba da se doda obavestenje da je prekinuta veza sa serverom
                         break;
-
+                    case Poruke.GRESKA_NA_SERVERU:
+                        konekcija=null;
+                        //treba da se doda obavestenje da je doslo do greske
+                        break;
+                    case Poruke.GRESKA_PRI_KONEKTOVANJU:
+                        konekcija=null;
+                        //treba da se doda obavestenje da je doslo do greske pri konektovanju
                     default:
                     super.handleMessage(msg);
                         break;
@@ -90,9 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
@@ -114,58 +119,57 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //Kreiranje ListViewa i postavaljanje Listenera
     private void inicjalizacijaListe(){
         listView=(ListView) findViewById(R.id.listView);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                if(konekcija==null) return;
-                konekcija.posaljiPoruku(adapter.getItem((int) id).toString());
-                obradaFajla(adapter.getItem(position));
-                int a=1;
-                int b=1;
-                int c=1;
-            }
-
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                getMenuInflater().inflate(R.menu.pomocni_meni, menu);
-                return false;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.Obrisi:
-                        konekcija.posaljiPoruku("rm ");
-                }
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-
-            }
-        });
+        //onItemClickListenere podrazumevano otvara odabrani fajl ili folder
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(konekcija==null) return;
-                obradaFajla(adapter.getItem(position));
+                if (konekcija == null) return;
+                OtvaranjeFajla(adapter.getItem(position));
+                }
+            });
+        //onItemLongClickListener otvara pomocni meni sa dodatnim opcijama
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                kreiranjePomocnogMenija(view,adapter.getItem(position));
+                return false;
             }
         });
     }
 
 
+
+    //Kreiranje PopUp menija sa dodatnim opcijama
+    private void kreiranjePomocnogMenija(View v, final Poruka poruka){
+        PopupMenu popupMenu=new PopupMenu(this,v);
+        getMenuInflater().inflate(R.menu.pomocni_meni,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                //treba da se dodaju metode za brisanje, kopiranje, isecanje i nalepljivanje
+                switch (item.getItemId()){
+                    case R.id.Otvori: OtvaranjeFajla(poruka); break;
+                    case R.id.Obrisi:  break;
+                    case R.id.Kopiraj: break;
+                    case R.id.Iseci:  break;
+                    case R.id.Nalepi:  break;
+                    default: return true;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
+
+
+
+
     //Obrada izabranog fajla iz liste
-    private void obradaFajla(Poruka poruka){
+    private void OtvaranjeFajla(Poruka poruka){
         if(poruka.getFajl().equals("..")){
             String[] niz=pozicija.split(String.valueOf('\\'));
             pozicija="";
@@ -175,11 +179,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         switch (poruka.getEkstenzija()){
-            case ".txt": konekcija.posaljiPoruku("edit "+pozicija+'\\'+poruka.toString()); return;
-            case "":pozicija+='\\'+poruka.toString(); konekcija.posaljiPoruku("dir "+pozicija); return;
-            case ".exe": konekcija.posaljiPoruku("run "+pozicija+'\\'+poruka.toString()); return;
-            case ".jpg":case ".jpeg":case ".png":case ".bpn": konekcija.posaljiPoruku(pozicija+'\\'+poruka.toString()); return;
-            default: konekcija.posaljiPoruku(pozicija+'\\'+poruka.toString()); return;
+            case "":pozicija+=(pozicija.equals(""))?poruka.toString():'\\'+poruka.toString();
+                konekcija.posaljiPoruku("dir "+pozicija); return;
+            default: konekcija.posaljiPoruku(pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString())); return;
         }
     }
+
+
+
+
+
 }
