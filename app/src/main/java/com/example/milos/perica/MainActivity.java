@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<Poruka> adapter;
     String cache,pozicija;
+    private Menu mn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,28 +70,16 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case Poruke.ZATVARANJE_KONEKCIJE:
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
                         MenuItem mi =mn.findItem(R.id.paljeje);
                         mi.setIcon(R.drawable.plug42);
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
-
-=======
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
->>>>>>> parent of 5a30a32... e
-=======
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
->>>>>>> parent of 5a30a32... e
-=======
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
->>>>>>> parent of 5a30a32... e
                         break;
                     case Poruke.GRESKA_NA_SERVERU:
                         konekcija=null;
@@ -100,21 +89,12 @@ public class MainActivity extends AppCompatActivity {
                     case Poruke.GRESKA_PRI_KONEKTOVANJU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska prilikom konekcije!",Toast.LENGTH_LONG).show();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                         MenuItem miii =mn.findItem(R.id.paljeje);
                         miii.setIcon(R.drawable.plug42);
                         break;
                     case Poruke.NEUSPELO_BRISANJE:
                         Toast.makeText(getApplicationContext(),"Ne mozete da obrisete taj fajl/folder",Toast.LENGTH_LONG).show();
                         break;
-=======
->>>>>>> parent of 5a30a32... e
-=======
->>>>>>> parent of 5a30a32... e
-=======
->>>>>>> parent of 5a30a32... e
                     default:
                     super.handleMessage(msg);
                         break;
@@ -127,16 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         mn = menu;
-=======
->>>>>>> parent of 5a30a32... e
-=======
->>>>>>> parent of 5a30a32... e
-=======
->>>>>>> parent of 5a30a32... e
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -164,17 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else{
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
                 item.setIcon(R.drawable.plug42);
-=======
->>>>>>> parent of 5a30a32... e
-=======
->>>>>>> parent of 5a30a32... e
-=======
->>>>>>> parent of 5a30a32... e
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN"));
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN","",""));
             }

@@ -28,23 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         android:text="@string/podesavanjePort"
-=======
-        android:text="Unesite Port"
->>>>>>> origin/master
-=======
-        android:text="Unesite Prot"
->>>>>>> parent of 5a30a32... e
-=======
-        android:text="Unesite Prot"
->>>>>>> parent of 5a30a32... e
-=======
-        android:text="Unesite Prot"
->>>>>>> parent of 5a30a32... e
         android:id="@+id/port"
         />
 
