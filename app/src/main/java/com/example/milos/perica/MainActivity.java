@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case Poruke.ZATVARANJE_KONEKCIJE:
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
@@ -77,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                         mi.setIcon(R.drawable.plug42);
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
 
+=======
+                        konekcija=null;
+                        Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
+>>>>>>> parent of 5a30a32... e
 =======
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
@@ -91,12 +96,15 @@ public class MainActivity extends AppCompatActivity {
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska prilikom konekcije!",Toast.LENGTH_LONG).show();
 <<<<<<< HEAD
+<<<<<<< HEAD
                         MenuItem miii =mn.findItem(R.id.paljeje);
                         miii.setIcon(R.drawable.plug42);
                         break;
                     case Poruke.NEUSPELO_BRISANJE:
                         Toast.makeText(getApplicationContext(),"Ne mozete da obrisete taj fajl/folder",Toast.LENGTH_LONG).show();
                         break;
+=======
+>>>>>>> parent of 5a30a32... e
 =======
 >>>>>>> parent of 5a30a32... e
                     default:
@@ -112,7 +120,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         mn = menu;
+=======
+>>>>>>> parent of 5a30a32... e
 =======
 >>>>>>> parent of 5a30a32... e
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -143,8 +154,11 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                 item.setIcon(R.drawable.plug42);
+=======
+>>>>>>> parent of 5a30a32... e
 =======
 >>>>>>> parent of 5a30a32... e
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN"));
