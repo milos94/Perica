@@ -71,37 +71,29 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case Poruke.ZATVARANJE_KONEKCIJE:
-                        konekcija=null;
-<<<<<<< HEAD
+
 
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
                         MenuItem mi =mn.findItem(R.id.paljeje);
                         mi.setIcon(R.drawable.plug42);
-=======
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
->>>>>>> origin/master
+
                         break;
                     case Poruke.GRESKA_NA_SERVERU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska na serveru!",Toast.LENGTH_LONG).show();
-<<<<<<< HEAD
                         MenuItem mii =mn.findItem(R.id.paljeje);
                         mii.setIcon(R.drawable.plug42);
-=======
->>>>>>> origin/master
                         break;
                     case Poruke.GRESKA_PRI_KONEKTOVANJU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska prilikom konekcije!",Toast.LENGTH_LONG).show();
-<<<<<<< HEAD
                         MenuItem miii =mn.findItem(R.id.paljeje);
                         miii.setIcon(R.drawable.plug42);
-=======
                         break;
                     case Poruke.NEUSPELO_BRISANJE:
                         Toast.makeText(getApplicationContext(),"Ne mozete da obrisete taj fajl/folder",Toast.LENGTH_LONG).show();
                         break;
->>>>>>> origin/master
                     default:
                     super.handleMessage(msg);
                         break;
@@ -114,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mn=menu;
+        mn = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -143,12 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else{
-<<<<<<< HEAD
+
                 item.setIcon(R.drawable.plug42);
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN"));
-=======
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN","",""));
->>>>>>> origin/master
             }
 
         }
