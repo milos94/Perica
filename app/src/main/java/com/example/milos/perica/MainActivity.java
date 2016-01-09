@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<Poruka> adapter;
     String cache,pozicija;
+    private Menu mn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,16 +72,22 @@ public class MainActivity extends AppCompatActivity {
 
                     case Poruke.ZATVARANJE_KONEKCIJE:
                         konekcija=null;
+
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
+                        MenuItem mi =mn.findItem(R.id.paljeje);
+                        mi.setIcon(R.drawable.plug42);
                         break;
                     case Poruke.GRESKA_NA_SERVERU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska na serveru!",Toast.LENGTH_LONG).show();
-
+                        MenuItem mii =mn.findItem(R.id.paljeje);
+                        mii.setIcon(R.drawable.plug42);
                         break;
                     case Poruke.GRESKA_PRI_KONEKTOVANJU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska prilikom konekcije!",Toast.LENGTH_LONG).show();
+                        MenuItem miii =mn.findItem(R.id.paljeje);
+                        miii.setIcon(R.drawable.plug42);
                     default:
                     super.handleMessage(msg);
                         break;
@@ -92,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mn=menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -108,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(id==R.id.paljeje) {
             if(konekcija==null) {
+                item.setIcon(R.drawable.plugon);
                 konekcija = new Konekcija(this, handler);
                 konekcija.start();
 
@@ -119,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else{
+                item.setIcon(R.drawable.plug42);
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN"));
             }
 

@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Unesite IP Adresu Servera"
+        android:text="@string/podesavanjeIPadresa"
         android:id="@+id/ipadresa"
        />
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Unesite Prot"
+        android:text="@string/podesavanjePort"
         android:id="@+id/port"
         />
 
@@ -40,7 +40,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sacuvaj"
+        android:text="@string/dugmeSacuvaj"
         android:id="@+id/sacuvaj"
         android:layout_gravity="bottom|center_horizontal" />
 </LinearLayout>
