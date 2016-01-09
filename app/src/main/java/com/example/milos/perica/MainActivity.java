@@ -108,10 +108,12 @@ public class MainActivity extends AppCompatActivity {
             if(konekcija==null) {
                 konekcija = new Konekcija(this, handler);
                 konekcija.start();
+                pozicija="";
+                cache="";
                 //treba da se doda obavestenje da je povezano sa serverom
             }
             else{
-                konekcija.posaljiPoruku("SHUTDOWN");
+                konekcija.posaljiPoruku(new Poruka("SHUTDOWN"));
             }
 
         }
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     //Obrada izabranog fajla iz liste
     private void OtvaranjeFajla(Poruka poruka){
         if(poruka.getFajl().equals("..")){
-            String[] niz=pozicija.split(String.valueOf('\\'));
+            String[] niz=pozicija.split("\\\\");
             pozicija="";
             for(int i=0;i<niz.length-1;i++){
                 pozicija+=niz[i]+"\\";
@@ -179,9 +181,19 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         switch (poruka.getEkstenzija()){
-            case "":pozicija+=(pozicija.equals(""))?poruka.toString():'\\'+poruka.toString();
-                konekcija.posaljiPoruku("dir "+pozicija); return;
-            default: konekcija.posaljiPoruku(pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString())); return;
+            case "":pozicija+=(pozicija.equals(""))?poruka.toString():poruka.toString()+"\\";
+                Poruka p=new Poruka("dir",pozicija,"nema");
+                konekcija.posaljiPoruku(p);
+                return;
+            case ".exe":
+                konekcija.posaljiPoruku(new Poruka("run",
+                        pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString()))); return;
+            case ".jpg":
+                konekcija.posaljiPoruku(new Poruka("get",
+                        pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString()))); return;
+            default: pozicija+=(pozicija.equals(""))?poruka.toString():poruka.toString()+"\\";
+                konekcija.posaljiPoruku(new Poruka("dir",pozicija,"nema"));
+                return;
         }
     }
 

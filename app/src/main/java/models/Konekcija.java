@@ -70,7 +70,8 @@ public class Konekcija extends Thread{
                 else{ lista.add(p);}
             }
         }
-        catch (Exception e){e.printStackTrace();
+        catch (Exception e){
+            e.printStackTrace();
             msg=Message.obtain();
             msg.what=Poruke.GRESKA_NA_SERVERU;
             handler.sendMessage(msg);}
@@ -79,7 +80,7 @@ public class Konekcija extends Thread{
 
 
     //Metoda za slanje poruke u obliku string
-    public void posaljiPoruku(String p){
+    public void posaljiPoruku(Poruka p){
         try {
             outputStream.writeObject(p);
             outputStream.flush();
