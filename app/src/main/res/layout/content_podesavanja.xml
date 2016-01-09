@@ -31,10 +31,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:text="@string/podesavanjePort"
 =======
         android:text="Unesite Port"
 >>>>>>> origin/master
+=======
+        android:text="Unesite Prot"
+>>>>>>> parent of 5a30a32... e
 =======
         android:text="Unesite Prot"
 >>>>>>> parent of 5a30a32... e
