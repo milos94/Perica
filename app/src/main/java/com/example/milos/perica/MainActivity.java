@@ -72,22 +72,36 @@ public class MainActivity extends AppCompatActivity {
 
                     case Poruke.ZATVARANJE_KONEKCIJE:
                         konekcija=null;
+<<<<<<< HEAD
 
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
                         MenuItem mi =mn.findItem(R.id.paljeje);
                         mi.setIcon(R.drawable.plug42);
+=======
+                        Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
+>>>>>>> origin/master
                         break;
                     case Poruke.GRESKA_NA_SERVERU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska na serveru!",Toast.LENGTH_LONG).show();
+<<<<<<< HEAD
                         MenuItem mii =mn.findItem(R.id.paljeje);
                         mii.setIcon(R.drawable.plug42);
+=======
+>>>>>>> origin/master
                         break;
                     case Poruke.GRESKA_PRI_KONEKTOVANJU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska prilikom konekcije!",Toast.LENGTH_LONG).show();
+<<<<<<< HEAD
                         MenuItem miii =mn.findItem(R.id.paljeje);
                         miii.setIcon(R.drawable.plug42);
+=======
+                        break;
+                    case Poruke.NEUSPELO_BRISANJE:
+                        Toast.makeText(getApplicationContext(),"Ne mozete da obrisete taj fajl/folder",Toast.LENGTH_LONG).show();
+                        break;
+>>>>>>> origin/master
                     default:
                     super.handleMessage(msg);
                         break;
@@ -129,8 +143,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else{
+<<<<<<< HEAD
                 item.setIcon(R.drawable.plug42);
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN"));
+=======
+                konekcija.posaljiPoruku(new Poruka("SHUTDOWN","",""));
+>>>>>>> origin/master
             }
 
         }
@@ -170,13 +188,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 //treba da se dodaju metode za brisanje, kopiranje, isecanje i nalepljivanje
-                switch (item.getItemId()){
-                    case R.id.Otvori: OtvaranjeFajla(poruka); break;
-                    case R.id.Obrisi:  break;
-                    case R.id.Kopiraj: break;
-                    case R.id.Iseci:  break;
-                    case R.id.Nalepi:  break;
-                    default: return true;
+                switch (item.getItemId()) {
+                    case R.id.Otvori:
+                        OtvaranjeFajla(poruka);
+                        break;
+                    case R.id.Obrisi:
+                        ObrisiFajl(poruka);
+                        break;
+                    case R.id.Preuzmi:
+                        break;
+                    default:
+                        return true;
                 }
                 return false;
             }
@@ -199,24 +221,17 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         switch (poruka.getEkstenzija()){
-            case "":pozicija+=(pozicija.equals(""))?poruka.toString():poruka.toString()+"\\";
-                Poruka p=new Poruka("dir",pozicija,"nema");
-                konekcija.posaljiPoruku(p);
-                return;
-            case ".exe":
-                konekcija.posaljiPoruku(new Poruka("run",
-                        pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString()))); return;
-            case ".jpg":
-                konekcija.posaljiPoruku(new Poruka("get",
-                        pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString()))); return;
-            default: pozicija+=(pozicija.equals(""))?poruka.toString():poruka.toString()+"\\";
-                konekcija.posaljiPoruku(new Poruka("dir",pozicija,"nema"));
-                return;
+            case "":case "DIR":pozicija+=(pozicija.equals(""))?poruka.toString():poruka.toString()+"\\";
+                    konekcija.posaljiPoruku(new Poruka("dir",pozicija,"nema"));
+                    return;
+            default: konekcija.posaljiPoruku(new Poruka("run",
+                    pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString()))); return;
         }
     }
 
-
-
-
-
+    private void ObrisiFajl(Poruka poruka){
+        konekcija.posaljiPoruku(new Poruka("delete",
+                pozicija+((pozicija.equals(""))?poruka.toString():'\\'+poruka.toString())));
+    }
 }
+

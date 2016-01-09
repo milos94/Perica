@@ -53,13 +53,19 @@ public class Konekcija extends Thread{
             pokreni();
             while(radi){
                 Poruka p= (Poruka) inputStream.readObject();
-                if(p.getFajl().equals("START")){ lista.clear(); continue;}
+                if(p.getFajl().equals("START")){
+                    lista.clear(); continue;}
                 else if(p.getFajl().equals("END")){
                     msg=Message.obtain();
                     msg.what=Poruke.OK;
                     msg.obj=lista;
                     handler.sendMessage(msg);
                     continue;
+                }
+                else if(p.getFajl().equals("NE")){
+                    msg=Message.obtain();
+                    msg.what=Poruke.NEUSPELO_BRISANJE;
+                    handler.sendMessage(msg);
                 }
                 else if(p.getFajl().equals("SHUTDOWN")){
                     kraj();
