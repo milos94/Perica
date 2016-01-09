@@ -4,7 +4,8 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
-    <item android:id="@+id/paljeje"
+    <item android:id="@+id/paljenje"
+        android:icon="@drawable/plug42"
         android:title="ON/OFF"
         app:showAsAction="ifRoom"
        />
