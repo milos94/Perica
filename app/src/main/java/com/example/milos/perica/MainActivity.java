@@ -38,6 +38,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.Toast;
 
 import models.Konekcija;
 import models.Poruka;
@@ -69,15 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
                     case Poruke.ZATVARANJE_KONEKCIJE:
                         konekcija=null;
-                        //treba da se doda obavestenje da je prekinuta veza sa serverom
+                        Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG);
                         break;
                     case Poruke.GRESKA_NA_SERVERU:
                         konekcija=null;
-                        //treba da se doda obavestenje da je doslo do greske
+                        Toast.makeText(getApplicationContext(),"Dogodila se greska na serveru!",Toast.LENGTH_LONG);
                         break;
                     case Poruke.GRESKA_PRI_KONEKTOVANJU:
                         konekcija=null;
-                        //treba da se doda obavestenje da je doslo do greske pri konektovanju
+                        Toast.makeText(getApplicationContext(),"Dogodila se greska prilikom konekcije!",Toast.LENGTH_LONG);
                     default:
                     super.handleMessage(msg);
                         break;
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             if(konekcija==null) {
                 konekcija = new Konekcija(this, handler);
                 konekcija.start();
-                //treba da se doda obavestenje da je povezano sa serverom
+                Toast.makeText(getApplicationContext(),"Konekcija sa serverom je uspostavljena",Toast.LENGTH_LONG);
             }
             else{
                 konekcija.posaljiPoruku("SHUTDOWN");
