@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<Poruka> adapter;
     String cache,pozicija;
-    private Menu mn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case Poruke.ZATVARANJE_KONEKCIJE:
+<<<<<<< HEAD
 
 
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
@@ -78,22 +77,28 @@ public class MainActivity extends AppCompatActivity {
                         mi.setIcon(R.drawable.plug42);
                         Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
 
+=======
+                        konekcija=null;
+                        Toast.makeText(getApplicationContext(),"Konekcija je ugasena!", Toast.LENGTH_LONG).show();
+>>>>>>> parent of 5a30a32... e
                         break;
                     case Poruke.GRESKA_NA_SERVERU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska na serveru!",Toast.LENGTH_LONG).show();
-                        MenuItem mii =mn.findItem(R.id.paljeje);
-                        mii.setIcon(R.drawable.plug42);
+
                         break;
                     case Poruke.GRESKA_PRI_KONEKTOVANJU:
                         konekcija=null;
                         Toast.makeText(getApplicationContext(),"Dogodila se greska prilikom konekcije!",Toast.LENGTH_LONG).show();
+<<<<<<< HEAD
                         MenuItem miii =mn.findItem(R.id.paljeje);
                         miii.setIcon(R.drawable.plug42);
                         break;
                     case Poruke.NEUSPELO_BRISANJE:
                         Toast.makeText(getApplicationContext(),"Ne mozete da obrisete taj fajl/folder",Toast.LENGTH_LONG).show();
                         break;
+=======
+>>>>>>> parent of 5a30a32... e
                     default:
                     super.handleMessage(msg);
                         break;
@@ -106,7 +111,10 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+<<<<<<< HEAD
         mn = menu;
+=======
+>>>>>>> parent of 5a30a32... e
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -123,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if(id==R.id.paljeje) {
             if(konekcija==null) {
-                item.setIcon(R.drawable.plugon);
                 konekcija = new Konekcija(this, handler);
                 konekcija.start();
 
@@ -135,8 +142,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else{
+<<<<<<< HEAD
 
                 item.setIcon(R.drawable.plug42);
+=======
+>>>>>>> parent of 5a30a32... e
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN"));
                 konekcija.posaljiPoruku(new Poruka("SHUTDOWN","",""));
             }

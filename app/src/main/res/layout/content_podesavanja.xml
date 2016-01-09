@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/podesavanjeIPadresa"
+        android:text="Unesite IP Adresu Servera"
         android:id="@+id/ipadresa"
        />
 
@@ -29,10 +29,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:text="@string/podesavanjePort"
 =======
         android:text="Unesite Port"
 >>>>>>> origin/master
+=======
+        android:text="Unesite Prot"
+>>>>>>> parent of 5a30a32... e
         android:id="@+id/port"
         />
 
@@ -44,7 +48,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dugmeSacuvaj"
+        android:text="Sacuvaj"
         android:id="@+id/sacuvaj"
         android:layout_gravity="bottom|center_horizontal" />
 </LinearLayout>

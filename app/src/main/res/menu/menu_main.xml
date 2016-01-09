@@ -6,7 +6,6 @@
 
     <item android:id="@+id/paljeje"
         android:title="ON/OFF"
-        android:icon="@drawable/plug42"
         app:showAsAction="ifRoom"
        />
 </menu>
