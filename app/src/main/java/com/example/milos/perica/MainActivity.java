@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             for(int i=0;i<niz.length-1;i++){
                 pozicija+=niz[i]+"\\";
             }
+            konekcija.posaljiPoruku(new Poruka("dir",pozicija,"nema"));
             return;
         }
         switch (poruka.getEkstenzija()){
