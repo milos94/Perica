@@ -8,13 +8,7 @@
     <item android:id="@+id/Obrisi"
         android:title="Obrisi"
         />
-    <item android:id="@+id/Kopiraj"
-        android:title="Kopiraj"
-        />
-    <item android:id="@+id/Iseci"
-        android:title="Iseci"
-        />
-    <item android:id="@+id/Nalepi"
-        android:title="Nalepi"
+    <item android:id="@+id/Preuzmi"
+        android:title="Preuzmi"
         />
 </menu>
