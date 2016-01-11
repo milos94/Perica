@@ -38,22 +38,22 @@ public class HandlerPoruka extends Handler {
                 break;
             case Pomocna.ZATVARANJE_KONEKCIJE:
                 Toast.makeText(ctx, "Konekcija je ugasena!", Toast.LENGTH_LONG).show();
-                mn.getItem(0).setIcon(R.drawable.plug42);
+                mn.getItem(0).setIcon(R.drawable.plugoff);
                 konekcija=null;
                 break;
             case Pomocna.GRESKA_NA_SERVERU:
                 konekcija=null;
                 Toast.makeText(ctx, "Dogodila se greska na serveru!", Toast.LENGTH_LONG).show();
-                mn.getItem(0).setIcon(R.drawable.plug42);
+                mn.getItem(0).setIcon(R.drawable.plugoff);
                 break;
             case Pomocna.GRESKA_PRI_KONEKTOVANJU:
                 konekcija=null;
                 Toast.makeText(ctx, "Dogodila se greska prilikom konekcije!", Toast.LENGTH_LONG).show();
-                mn.getItem(0).setIcon(R.drawable.plug42);
+                mn.getItem(0).setIcon(R.drawable.plugoff);
                 break;
             case Pomocna.NEUSPELO_BRISANJE:
                 Toast.makeText(ctx, "Ne mozete da obrisete taj fajl/folder!", Toast.LENGTH_LONG).show();
-                mn.getItem(0).setIcon(R.drawable.plug42);
+                mn.getItem(0).setIcon(R.drawable.plugoff);
                 break;
             case Pomocna.USPESNO_SKIDANJE_FAJLA:
                 Toast.makeText(ctx, "Uspesno preuzet fajl!", Toast.LENGTH_LONG).show();

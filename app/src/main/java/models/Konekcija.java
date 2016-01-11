@@ -1,6 +1,7 @@
 package models;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -8,14 +9,19 @@ import android.os.Message;
 import com.example.milos.perica.Razmena;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.security.Permission;
+import java.security.PermissionCollection;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 /**
  * Created by Milos on 21/12/2015.
@@ -50,7 +56,7 @@ public class Konekcija extends Thread{
             while(radi){
                 Poruka p= (Poruka) inputStream.readObject();
                 if(p.getFajl().equals("START")){
-                    lista.clear(); continue;}
+                    lista.clear();continue;}
                 else if(p.getFajl().equals("END")){
                     msg=Message.obtain();
                     msg.what= Pomocna.OK;
@@ -127,7 +133,18 @@ public class Konekcija extends Thread{
     private void preuzimanje(int velicina, String naziv){
         try {
             InputStream io = (InputStream) inputStream;
-            FileOutputStream fos = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath()+'/'+naziv);
+
+            File file=null;
+
+            if (pristupSpoljnojMemoriji())
+            {
+                 file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),naziv);
+            }
+            else
+            {
+                file = new File(ctx.getFilesDir(),naziv);
+            }
+            FileOutputStream fos = new FileOutputStream(file);
             BufferedOutputStream bos=new BufferedOutputStream(fos);
             byte [] mybytearray  = new byte [velicina+10];
             int procitano,trenutno;
@@ -137,10 +154,11 @@ public class Konekcija extends Thread{
                 procitano=io.read(mybytearray, trenutno, (mybytearray.length-trenutno));
                 if(procitano >= 0) trenutno += procitano;
             }while (procitano>-1);
-            bos.write(mybytearray,0,trenutno);
+            bos.write(mybytearray, 0, trenutno);
             bos.flush();
             bos.close();
             fos.close();
+
         }catch (Exception e) {
             e.printStackTrace();
             msg = Message.obtain();
@@ -148,10 +166,17 @@ public class Konekcija extends Thread{
             handler.sendMessage(msg);
             return;
         }
-            msg=Message.obtain();
-            msg.what= Pomocna.USPESNO_SKIDANJE_FAJLA;
-            handler.sendMessage(msg);
-
     }
+
+
+    public boolean pristupSpoljnojMemoriji() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+
 
 }

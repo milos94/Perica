@@ -1,22 +1,22 @@
 <resources>
-    <string name="app_name">Удаљен приступ серверу</string>
-    <string name="action_settings">Подешавања</string>
-    <string name="title_activity_settings">Подешавања</string>
-    <string name="podesavanjePort">Унесите порт</string>
-    <string name="dugmeSacuvaj">Сачувај</string>
-    <string name="AdresaServera">Унесите адресу сервера</string>
-    <string name="PreuzmiPopUp">Преузми са сервера</string>
-    <string name="OtvoriPopUp">Покрени на серверу</string>
-    <string name="ObrisiPopUp">Обриши на серверу</string>
-    <string name="AdresaServeraHint">Пример: 192.168.0.0</string>
-    <string name="podesavanjePortHint">Пример: 8080</string>
-    <string name="KonekcijaUgasena">Веза са сервером је прекинута</string>
-    <string name="GreskaPrilikomKonektovanja">Грешка приликом повезивања</string>
-    <string name="GreskaNaServeru">Догодила се грешка на серверу</string>
-    <string name="NeuspeloBrisanje">Брисање датотеке није успело</string>
-    <string name="UspesnoPreuzimaje">Успешно преузимање датитеке</string>
-    <string name="NeuspesnoPreuzimanje">Неуспешно преузимање датотеке</string>
-    <string name="UspesnoKonektovanje">Веза са сервером је успостављена</string>
+    <string name="app_name">Remote access to server</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="podesavanjePort">Insert port</string>
+    <string name="dugmeSacuvaj">Save</string>
+    <string name="AdresaServera">Insert IP address of server</string>
+    <string name="PreuzmiPopUp">Download</string>
+    <string name="OtvoriPopUp">Run on server</string>
+    <string name="ObrisiPopUp">Delete on server</string>
+    <string name="AdresaServeraHint">Example: 192.168.0.0</string>
+    <string name="podesavanjePortHint">Example: 8080</string>
+    <string name="KonekcijaUgasena">Disconected</string>
+    <string name="GreskaPrilikomKonektovanja">Error on connecting</string>
+    <string name="GreskaNaServeru">Error on server</string>
+    <string name="NeuspeloBrisanje">Failed to delete file</string>
+    <string name="UspesnoPreuzimaje">Dowload sucseeded</string>
+    <string name="NeuspesnoPreuzimanje">Download failed</string>
+    <string name="UspesnoKonektovanje">Connected</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

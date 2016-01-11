@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Unesite IP Adresu Servera"
+        android:text="@string/AdresaServera"
         android:id="@+id/ipadresa"
        />
 
@@ -23,7 +23,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/teip"
-        android:hint="Primer: 192.168.1.0:8080"/>
+        android:hint="@string/AdresaServeraHint"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,11 +36,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/teport"
-        android:hint="Primer:8080"/>
+        android:hint="@string/podesavanjePortHint"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sacuvaj"
+        android:text="@string/dugmeSacuvaj"
         android:id="@+id/sacuvaj"
         android:layout_gravity="bottom|center_horizontal" />
 </LinearLayout>

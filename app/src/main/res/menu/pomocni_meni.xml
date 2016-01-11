@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
     <item android:id="@+id/Otvori"
-        android:title="Otvori"
+        android:title="@string/OtvoriPopUp"
         />
     <item android:id="@+id/Obrisi"
-        android:title="Obrisi"
+        android:title="@string/ObrisiPopUp"
         />
     <item android:id="@+id/Preuzmi"
-        android:title="Preuzmi"
+        android:title="@string/PreuzmiPopUp"
         />
 </menu>
